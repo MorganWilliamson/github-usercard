@@ -1,19 +1,9 @@
 import axios from 'axios'
-console.log(axios);
 
 /*
   STEP 1: using axios, send a GET request to the following URL
     https://api.github.com/users/morganwilliamson
 */
-
-axios.get('https://api.github.com/users/morganwilliamson')
-  .then(hubData => {
-    console.log(hubData);
-  })
-  .catch(hubErr => {
-    console.log(hubErr);
-    debugger;
-  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -63,18 +53,60 @@ const followersArray = [];
 
 const entryPoint = document.querySelector('.cards')
 
-function ghCardMaker({ imageURL, name, username, location, followers, following, bio }) {
+function ghCardMaker({ imageURL, name, username, location, userURL, followers, following, bio }) {
   
   //Instantiating elements
+  const userCard = document.createElement('div')
+  const image = document.createElement('img')
+  const heading = document.createElement('h3')
+  const user = document.createElement('p')
+  const geo = document.createElement('p')
+  const link = document.createElement('a')
+  const follower = document.createElement('p')
+  const follows = document.createElement('p')
+  const info = document.createElement('p')
 
   //Setting class names, attributes, and text content
+  userCard.classList.add('card')
+  heading.classList.add('name')
+  user.classList.add('username')
+  image.src = imageURL;
+  /* Text Content for the following: name(heading), username(user), location(geo), profile(link), follower(Followers), follows(Following), info(Bio) */
+  heading.textContent = `${name}`;
+  user.textContent = `${username}`;
+  geo.textContent = `Location: ${location}`;
+  link.textContent = `Profile: ${userURL}`;
+  follower.textContent = `Followers: ${followers}`;
+  follows.textContent = `Following: ${following}`;
+  info.textContent = `Bio: ${bio}`;
 
   //Creating the hierarchy
+  userCard.append(image)
+  userCard.append(heading)
+  userCard.append(user)
+  userCard.append(geo)
+  userCard.append(link)
+  userCard.append(follower)
+  userCard.append(follows)
+  userCard.append(info)
 
   //Interactivity(?)
   
-  return //something
+  return userCard;
 }
+
+
+axios.get('https://api.github.com/users/morganwilliamson')
+  .then(hubData => {
+    const images = hubData.data.message;
+    images.forEach(image => {
+      const userCard = ghCardMaker({imageURL: image })
+      entryPoint.appendChild(userCard);
+    })
+  })
+  .catch(hubErr => {
+    console.log(hubErr);
+  })
 
 /*
   List of LS Instructors Github username's:
