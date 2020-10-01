@@ -3,9 +3,17 @@ console.log(axios);
 
 /*
   STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/morganwilliamson
 */
+
+axios.get('https://api.github.com/users/morganwilliamson')
+  .then(hubData => {
+    console.log(hubData);
+  })
+  .catch(hubErr => {
+    console.log(hubErr);
+    debugger;
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -22,7 +30,7 @@ console.log(axios);
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    follow this link in your browser https://api.github.com/users/morganwilliamson/followers,
     manually find some other users' github handles, or use the list found at the
     bottom of the page. Get at least 5 different Github usernames and add them as
     Individual strings to the friendsArray below.

@@ -41,10 +41,10 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ### Axios Setup
 
-#### Option 1 (adding Axios via script element)
+<!-- #### Option 1 (adding Axios via script element)
 
 * [ ] Include the script element linking the `axios` library in your HTML.
-* [ ] If you do not remember the code you can find it [here](https://github.com/axios/axios).
+* [ ] If you do not remember the code you can find it [here](https://github.com/axios/axios). -->
 
 #### Option 2 (installing Axios with npm)
 
