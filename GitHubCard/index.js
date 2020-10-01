@@ -1,9 +1,14 @@
 import axios from 'axios'
 
 /*
-  STEP 1: using axios, send a GET request to the following URL
-    https://api.github.com/users/morganwilliamson
+STEP 1: using axios, send a GET request to the following URL
+https://api.github.com/users/morganwilliamson
 */
+
+axios.get('https://api.github.com/users/morganwilliamson')
+  .then(res => {
+    ghCardMaker(res.data);
+  });
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -51,12 +56,12 @@ const followersArray = [];
     </div>
 */
 
-const entryPoint = document.querySelector('.cards')
 
-function ghCardMaker({ imageURL, name, username, location, userURL, followers, following, bio }) {
+function ghCardMaker(object) {
   
   //Instantiating elements
   const userCard = document.createElement('div')
+  const cardInfo = document.createElement('div')
   const image = document.createElement('img')
   const heading = document.createElement('h3')
   const user = document.createElement('p')
@@ -65,21 +70,25 @@ function ghCardMaker({ imageURL, name, username, location, userURL, followers, f
   const follower = document.createElement('p')
   const follows = document.createElement('p')
   const info = document.createElement('p')
-
+  
   //Setting class names, attributes, and text content
   userCard.classList.add('card')
+  cardInfo.classList.add('card-info')
   heading.classList.add('name')
   user.classList.add('username')
-  image.src = imageURL;
+  image.src = object.avatar_url;
+  image.alt = `${object.name}'s Profile Picture`
+  link.href = object.html_url;
+  
   /* Text Content for the following: name(heading), username(user), location(geo), profile(link), follower(Followers), follows(Following), info(Bio) */
-  heading.textContent = `${name}`;
-  user.textContent = `${username}`;
-  geo.textContent = `Location: ${location}`;
-  link.textContent = `Profile: ${userURL}`;
-  follower.textContent = `Followers: ${followers}`;
-  follows.textContent = `Following: ${following}`;
-  info.textContent = `Bio: ${bio}`;
-
+  heading.textContent = `${object.name}`;
+  user.textContent = `${object.login}`;
+  geo.textContent = `Location: ${object.location}`;
+  link.textContent = `Profile: ${object.html_url}`;
+  follower.textContent = `Followers: ${object.followers}`;
+  follows.textContent = `Following: ${object.following}`;
+  info.textContent = `Bio: ${object.bio}`;
+  
   //Creating the hierarchy
   userCard.append(image)
   userCard.append(heading)
@@ -89,24 +98,28 @@ function ghCardMaker({ imageURL, name, username, location, userURL, followers, f
   userCard.append(follower)
   userCard.append(follows)
   userCard.append(info)
-
-  //Interactivity(?)
   
+  //Interactivity(?)
+  const entryPoint = document.querySelector('.cards')
+  entryPoint.append(userCard);
   return userCard;
 }
 
 
-axios.get('https://api.github.com/users/morganwilliamson')
-  .then(hubData => {
-    const images = hubData.data.message;
-    images.forEach(image => {
-      const userCard = ghCardMaker({imageURL: image })
-      entryPoint.appendChild(userCard);
-    })
-  })
-  .catch(hubErr => {
-    console.log(hubErr);
-  })
+
+
+/*ignore this please*/
+// axios.get('https://api.github.com/users/morganwilliamson')
+//   .then(hubData => {
+  //     const images = hubData.data.image;
+  //     images.forEach(image => {
+    //       const userCard = ghCardMaker({imageURL: 'https://avatars3.githubusercontent.com/u/69918485?v=4',  })
+    //       entryPoint.appendChild(userCard);
+//     })
+//   })
+//   .catch(hubErr => {
+//     console.log(hubErr);
+//   })
 
 /*
   List of LS Instructors Github username's:
