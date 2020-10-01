@@ -34,7 +34,31 @@ axios.get('https://api.github.com/users/morganwilliamson')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(item =>{
+  axios.get(`https://api.github.com/users/${item}`)
+    .then(res =>{
+      ghCardMaker(res.data);
+    });
+});
+
+axios.get(`https://api.gitup.com/users/${followersArray}`)
+  .then(res => {
+    axios.get(res.data['followers_url'])
+      .then(res => {
+        res.data.forEach(item => {
+          axios.get(item['url'])
+          .then(res => {
+            ghCardMaker(res.data);
+          })
+        })
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      })
+  });
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
