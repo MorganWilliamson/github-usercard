@@ -61,6 +61,21 @@ const followersArray = [];
     </div>
 */
 
+const entryPoint = document.querySelector('.cards')
+
+function ghCardMaker({ imageURL, name, username, location, followers, following, bio }) {
+  
+  //Instantiating elements
+
+  //Setting class names, attributes, and text content
+
+  //Creating the hierarchy
+
+  //Interactivity(?)
+  
+  return //something
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
